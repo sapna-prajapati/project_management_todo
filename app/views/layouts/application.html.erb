@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <style type="text/css">
+    table {
+      width:60%;
+      border-collapse:collapse;
+    }
+    th, td {
+        border: 1px solid grey;
+        padding:10px;
+      }
+  </style>
+</head>
+<body>
+<div class="main_container">
+  <div class="container">
+    <div class="masthead">
+      <%= render 'layouts/header' %>
+      <h3 class="muted"><%= link_to "Project Management", projects_path %></h3>      
+    </div>
+    <hr />   
+    <div class="flash-messages"> 
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+    </div>
+    <div class="data_container"%>
+      <%= yield %>
+    <div>
+  </div>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,31 @@
+<h1>Listing Projects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="4"> Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= project.description %></td>
+        <td><%= link_to 'Show', project, class: "btn btn-primary" %></td>
+        <% if can? :manage, Project %>
+          <td><%= link_to 'Edit', edit_project_path(project), class: "btn btn-info"  %></td>
+          <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+        <%end%>
+        <td><%= link_to 'View all tasks', project_tasks_path(project), class: "btn btn-info" %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if can? :manage, Project %>
+  <%= link_to 'New Project', new_project_path, class: "btn btn-success" %>
+<% end %>

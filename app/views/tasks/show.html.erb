@@ -1,0 +1,27 @@
+<p>
+  <strong>Name:</strong>
+  <%= @task.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @task.project.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @task.user.try(:email) %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @task.status %>
+</p>
+
+<%= link_to 'Edit', edit_project_task_path(@project, @task), class: "btn btn-info" %> |
+<%= link_to 'Back', project_tasks_path(@project), class: "btn btn-primary" %>

@@ -1,0 +1,35 @@
+<%= form_for [@project, @task] do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.select(:status, options_for_select([["Initial", "initial"], ["In Progress", "in_progress"], ["Done", "done"]], selected: @task.status)) %>
+  </div>
+  <% if !current_user.role?('developer') %>
+    <div class="field">
+      <%= f.label :user_id %><br>
+      <%= f.select(:user_id, options_for_select(User.developers.map{|u| [u.email, u.id]}, selected: @task.user.try(:id)),{include_blank: true}) %>
+    </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit 'Save', class: "btn btn-success"%>
+  </div>
+<% end %>

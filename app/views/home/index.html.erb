@@ -1,0 +1,28 @@
+<h3>Project-Tasks Dashboard</h3>
+<table>
+  <tr>
+    <td>Status</td>
+    <% @projects.each do |project| %>
+      <td><%= project.name %></td>
+    <%end%>
+  </tr>
+
+  <% @statuses.each do |task| %>
+    <tr>
+      <td><%= task[0] %> </td>
+      <% @projects.each do |project| %>
+        <td ><%= project.tasks.where(status: task[1]).map(&:name).join(",") %></td>
+      <%end%>
+    </tr>
+  <% end %>
+</table>
+
+<hr/>
+<% @projects.each do |project| %>
+  <div>
+    <% if can? :manage, Task %>
+      <h3><%= project.name %></h3>
+        <%= image_tag(generate_pie_chart(project), :alt => "#{project.name}") %>
+    <% end %>
+  </div>
+<%end %>
